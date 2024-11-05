@@ -6,7 +6,11 @@ export const Sprites = {
     ORANGE_SHIP_4: "/sprites/ships/nova-b-orange-4.png",
     ORANGE_SHIP_5: "/sprites/ships/nova-b-orange-5.png",
   },
-  Aliens: {
+  Alien: {
     NORMAL_ALIEN: "/sprites/aliens/alien-normal.png",
   },
+  Laser: {
+    RED_SHORT: "/sprites/lasers/02.png",
+  },
+  BACKGROUND: "/sprites/background.jpg",
 };
