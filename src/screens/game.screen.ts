@@ -90,18 +90,23 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
 
     alien.onUpdate(() => {
       if (alien.pos.y >= k.height() - 32.5) {
-        gameOver();
+        gameLose();
       }
       alien.pos.y += 4;
     });
 
-    const gameOver = () => {
+    const gameWin = () => {
+      k.play("enemy-crash-on-bottom");
+      k.go(Scene.VICTORY);
+    };
+
+    const gameLose = () => {
       k.play("enemy-crash-on-bottom");
       k.go(Scene.DEFEAT);
     };
 
     ship.onCollide("alien", (alien) => {
-      k.destroy(alien);
+      gameLose();
     });
 
     alien.onCollide("laser", (laser) => {
@@ -110,5 +115,11 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
       k.destroy(laser);
       k.destroy(alien);
     });
+
+    alien.onDestroy(() => {
+      gameWin();
+    });
+
+    // console.log(alien)
   };
 };
