@@ -13,4 +13,9 @@ export const Sprites = {
     RED_SHORT: "/sprites/lasers/02.png",
   },
   BACKGROUND: "/sprites/background.jpg",
+  VICTORY_MODAL: "/sprites/victory.png",
+  DEFEAT: {
+    MODAL: "/sprites/defeat-modal.png",
+    BG: "/sprites/defeat-bg.png",
+  },
 };

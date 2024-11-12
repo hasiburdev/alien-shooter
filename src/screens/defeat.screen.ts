@@ -1,12 +1,19 @@
 import { KAPLAYCtx } from "kaplay";
+import { Asset, Scene } from "../constants";
 
 export const defeatScreen = (k: KAPLAYCtx<{}, never>) => {
   return () => {
-    k.loadSprite("defeat", "/sprites/defeat_bg.png");
-    k.loadSprite("defeat_bg", "/sprites/defeat-bg.png");
     const mainRect = k.add([k.rect(k.width(), k.height()), k.pos(0, 0)]);
+
     k.add([
-      k.sprite("defeat", {
+      k.sprite(Asset.Sprite.DEFEAT_BG, {
+        width: k.width(),
+        height: k.height(),
+      }),
+    ]);
+
+    k.add([
+      k.sprite(Asset.Sprite.DEFEAT_MODAL, {
         width: 516,
         height: 483,
       }),
@@ -15,23 +22,18 @@ export const defeatScreen = (k: KAPLAYCtx<{}, never>) => {
       k.scale(1.5),
     ]);
 
-    // k.add([k.sprite("defeat_bg", { width: k.width(), height: k.height() })]);
-
     const homeButton = k.add([
       k.rect(66, 66, {
         radius: 33,
       }),
       k.area(),
       k.pos(550, 726),
-      //   k.outline(2),
       k.opacity(0),
       k.anchor("center"),
     ]);
 
-    // homeButton.add([k.text("HOME"), k.anchor("center"), k.color([0, 0, 0])]);
-
     homeButton.onClick(() => {
-      k.go("home");
+      k.go(Scene.HOME);
     });
 
     const retryButton = k.add([
@@ -40,17 +42,12 @@ export const defeatScreen = (k: KAPLAYCtx<{}, never>) => {
       }),
       k.area(),
       k.pos(248, 726),
-      //   k.outline(2),
       k.opacity(0),
       k.anchor("center"),
     ]);
 
-    // homeButton.add([k.text("HOME"), k.anchor("center"), k.color([0, 0, 0])]);
-
     retryButton.onClick(() => {
-      k.go("retry");
+      k.go(Scene.GAME);
     });
-
-    // victoryRect.draw(homeButton);
   };
 };

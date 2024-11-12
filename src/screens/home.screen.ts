@@ -1,11 +1,11 @@
 import { KAPLAYCtx } from "kaplay";
-import { Scene } from "../constants";
+import { Asset, Scene } from "../constants";
 import { Button } from "../components";
 
 export const homeScreen = (k: KAPLAYCtx<{}, never>) => {
   return () => {
     k.loadBean();
-    k.add([k.sprite("bean")]);
+    k.add([k.sprite(Asset.Sprite.BEAN)]);
 
     const fullSizeRect = k.add([
       k.rect(k.width(), k.height()),
@@ -13,6 +13,12 @@ export const homeScreen = (k: KAPLAYCtx<{}, never>) => {
       k.area(),
     ]);
 
-    const playButton = new Button(k, "Play");
+    new Button(k, "Play", () => {
+      k.go(Scene.GAME);
+    });
+
+    k.onKeyPress("space", () => {
+      k.go(Scene.GAME);
+    });
   };
 };
