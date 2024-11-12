@@ -76,24 +76,41 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
       if (ship.pos.x > ship.width / 2) ship.pos.x -= 5;
     });
 
-    const alien = k.add([
-      k.pos(k.width() / 2, 50),
-      k.sprite("alien", {
-        width: 45,
-        height: 65,
-      }),
-      k.anchor("center"),
-      k.body(),
-      k.area(),
-      "alien",
-    ]);
+    const createAlien = (x: number, y: number) =>
+      k.add([
+        k.pos(x, y),
+        k.sprite("alien", {
+          width: 45,
+          height: 65,
+        }),
+        k.anchor("center"),
+        // k.body(),
+        k.area(),
+        "alien",
+      ]);
+    const createAliens = () => {
+      const aliens = [];
+      const centerX = k.width() / 2;
+      aliens.push(createAlien(centerX, 50));
+      aliens.push(createAlien(centerX + 50, 50));
+      aliens.push(createAlien(centerX - 50, 50));
 
-    alien.onUpdate(() => {
-      if (alien.pos.y >= k.height() - 32.5) {
-        gameLose();
-      }
-      alien.pos.y += 4;
-    });
+      return aliens;
+    };
+
+    const aliens = createAliens();
+
+    // const alien = k.add([
+    //   k.pos(k.width() / 2, 50),
+    //   k.sprite("alien", {
+    //     width: 45,
+    //     height: 65,
+    //   }),
+    //   k.anchor("center"),
+    //   k.body(),
+    //   k.area(),
+    //   "alien",
+    // ]);
 
     const gameWin = () => {
       k.go(Scene.VICTORY);
@@ -104,19 +121,34 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
       k.go(Scene.DEFEAT);
     };
 
+    for (const alien of aliens) {
+      alien.onUpdate(() => {
+        if (alien.pos.y >= k.height() - 32.5) {
+          gameLose();
+        }
+        alien.pos.y += 4;
+      });
+
+      alien.onCollide("laser", (laser) => {
+        k.play("shoot-alien");
+
+        k.destroy(laser);
+        k.destroy(alien);
+      });
+
+      alien.onDestroy(() => {
+        // gameWin();
+        // alien = null;
+      });
+    }
+
     ship.onCollide("alien", (alien) => {
+      // k.destroy(alien);
       gameLose();
     });
 
-    alien.onCollide("laser", (laser) => {
-      k.play("shoot-alien");
-
-      k.destroy(laser);
-      k.destroy(alien);
-    });
-
-    alien.onDestroy(() => {
-      gameWin();
+    k.onUpdate(() => {
+      console.log(aliens);
     });
 
     // console.log(alien)
