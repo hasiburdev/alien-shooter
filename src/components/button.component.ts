@@ -3,15 +3,17 @@ import { KAPLAYCtx } from "kaplay";
 export class Button {
   constructor(
     k: KAPLAYCtx<{}, never>,
+
     private text: string,
-    private onClick: () => void
+    private onClick: () => void,
+    private position: [number, number] = [k.width() / 2, k.height() / 2]
   ) {
     const buttonComponent = k.add([
       k.rect(200, 100, { radius: 10 }),
       k.area(),
       k.body(),
       k.anchor("center"),
-      k.pos(k.width() / 2, k.height() / 2),
+      k.pos(...this.position),
       k.outline(4),
     ]);
 
