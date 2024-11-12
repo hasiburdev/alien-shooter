@@ -10,7 +10,7 @@ export const victoryScreen = (k: KAPLAYCtx<{}, never>) => {
       }),
       k.pos(k.width() / 2, k.height() / 2),
       k.anchor("center"),
-      k.scale(1.5),
+      k.scale(1.3),
     ]);
     // const victoryRect = k.add([
     //   k.rect(k.width() * 0.6, k.height() * 0.6, {
