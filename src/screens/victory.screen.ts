@@ -5,6 +5,8 @@ export const victoryScreen = (k: KAPLAYCtx<{}, never>) => {
   return () => {
     const mainRect = k.add([k.rect(k.width(), k.height()), k.pos(0, 0)]);
 
+    k.play(Asset.Sound.WIN_GAME);
+
     k.add([
       k.sprite(Asset.Sprite.DEFEAT_BG, {
         width: k.width(),

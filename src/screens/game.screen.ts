@@ -96,7 +96,6 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
     });
 
     const gameWin = () => {
-      k.play("enemy-crash-on-bottom");
       k.go(Scene.VICTORY);
     };
 

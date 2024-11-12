@@ -22,6 +22,7 @@ export enum SoundAsset {
   SHOOT_ALIEN = "shoot-alien",
   ENEMY_CRASH_ON_BOTTOM = "enemy-crash-on-bottom",
   SHOOT_BULLET = "shoot-bullet",
+  WIN_GAME = "win-game",
 }
 
 export const Asset = {

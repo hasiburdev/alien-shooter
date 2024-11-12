@@ -19,4 +19,5 @@ export const loadAssets = (k: KAPLAYCtx<{}, never>) => {
   k.loadSound(Asset.Sound.SHOOT_ALIEN, Sounds.BOOM_4);
   k.loadSound(Asset.Sound.ENEMY_CRASH_ON_BOTTOM, Sounds.ENEMY_CRASH_ON_BOTTOM);
   k.loadSound(Asset.Sound.SHOOT_BULLET, Sounds.SHOOT_BULLET);
+  k.loadSound(Asset.Sound.WIN_GAME, Sounds.WIN_GAME);
 };
