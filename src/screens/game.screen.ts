@@ -122,24 +122,21 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
     };
 
     for (const alien of aliens) {
-      alien.onUpdate(() => {
+      alien?.onUpdate(() => {
         if (alien.pos.y >= k.height() - 32.5) {
           gameLose();
         }
-        alien.pos.y += 4;
+        alien.pos.y += 2;
       });
 
-      alien.onCollide("laser", (laser) => {
+      alien?.onCollide("laser", (laser) => {
         k.play("shoot-alien");
 
         k.destroy(laser);
         k.destroy(alien);
       });
 
-      alien.onDestroy(() => {
-        // gameWin();
-        // alien = null;
-      });
+      alien?.onDestroy((e) => {});
     }
 
     ship.onCollide("alien", (alien) => {
@@ -148,7 +145,12 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
     });
 
     k.onUpdate(() => {
-      console.log(aliens);
+      const existingAlienNumber = aliens.filter((item) => item.exists()).length;
+
+      if (existingAlienNumber <= 0) {
+        gameWin();
+      }
+      // console.log();
     });
 
     // console.log(alien)
