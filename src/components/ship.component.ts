@@ -1,0 +1,37 @@
+import { KAPLAYCtx } from "kaplay";
+
+export class Ship {
+  constructor(
+    k: KAPLAYCtx<{}, never>,
+
+    private text: string,
+    private onClick: () => void,
+    private position: [number, number] = [k.width() / 2, k.height() / 2]
+  ) {
+    const buttonComponent = k.add([
+      k.rect(200, 100, { radius: 10 }),
+      k.area(),
+      k.body(),
+      k.anchor("center"),
+      k.pos(...this.position),
+      k.outline(4),
+    ]);
+
+    buttonComponent.onClick(this.onClick);
+
+    k.onUpdate(() => {
+      k.setCursor("default");
+    });
+
+    buttonComponent.add([
+      k.text(this.text),
+      k.anchor("center"),
+      k.color(0, 0, 0),
+    ]);
+
+    buttonComponent.onHoverUpdate(() => {
+      const t = k.time() * 10;
+      k.setCursor("pointer");
+    });
+  }
+}
