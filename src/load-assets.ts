@@ -14,6 +14,11 @@ export const loadAssets = (k: KAPLAYCtx<{}, never>) => {
   k.loadSprite(Asset.Sprite.DEFEAT_MODAL, Sprites.DEFEAT.MODAL);
   k.loadSprite(Asset.Sprite.DEFEAT_BG, Sprites.DEFEAT.BG);
 
+  k.loadSprite(Asset.Sprite.ENEMY_LEVEL_1_BOSS, Sprites.Enemy.Level_1.Boss);
+  k.loadSprite(Asset.Sprite.ENEMY_LEVEL_1_ROW_1, Sprites.Enemy.Level_1.Row_1);
+  k.loadSprite(Asset.Sprite.ENEMY_LEVEL_1_ROW_2, Sprites.Enemy.Level_1.Row_2);
+  k.loadSprite(Asset.Sprite.ENEMY_LEVEL_1_ROW_3, Sprites.Enemy.Level_1.Row_3);
+
   // Load all sounds
   k.loadSound(Asset.Sound.SHOOT, Sounds.BOOM_1);
   k.loadSound(Asset.Sound.SHOOT_ALIEN, Sounds.BOOM_4);

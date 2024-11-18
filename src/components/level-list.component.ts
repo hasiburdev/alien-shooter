@@ -6,16 +6,9 @@ import { Scene } from "../constants";
 export class LevelList {
   constructor(k: KAPLAYCtx<{}, never>) {
     this.createLevels(k);
-    // this.createLevelConnectorLine(
-    //   k
-    //   // levelPositionX,
-    //   // k.height() - 100 - 150 * index
-    // );
   }
 
   private createLevels(k: KAPLAYCtx<{}, never>) {
-    // for (let i = 0; i < 5; i++) {
-    // }
     Levels.map((level, index) => {
       const levelPositionX =
         index === 0
@@ -33,41 +26,42 @@ export class LevelList {
     });
   }
 
-  private createLevelConnectorLine(
-    k: KAPLAYCtx<{}, never>,
-    positionX: number = 0,
-    positionY: number = 0
-  ) {}
-
   private createLevelButton(
     k: KAPLAYCtx<{}, never>,
     positionX: number,
     positionY: number,
     levelText: string
   ) {
+    const player = getPlayer();
+
+    const color =
+      player.currentLevel < parseInt(levelText)
+        ? new k.Color(100, 100, 100)
+        : new k.Color(93, 140, 67);
+
     const level = k.add([
       k.rect(100, 100, { radius: 50 }),
       k.pos(positionX, positionY),
-      k.color(0, 0, 0),
+      k.color(color),
       k.anchor("center"),
       k.area(),
-      // k.layer("ui"),
     ]);
 
-    // k.onUpdate(() => {
-    const player = getPlayer();
-
     if (player.currentLevel < parseInt(levelText)) {
+      // level.color = new k.Color(255, 0, 0);
+
+      // const t = k.time() * 10;
+      // level.color = k.hsl2rgb((t / 10) % 1, 0.3, 0.2);
       level.onClick(() => {
-        console.log("Locked");
+        // console.log("Locked");
       });
     } else {
+      // const t = k.time() * 10;
+      // level.color = k.hsl2rgb((t / 10) % 1, 0.6, 0.7);
       level.onClick(() => {
-        // console.log("Unlocked");
-        k.go(Scene.GAME);
+        k.go(Scene.GAME, { level: parseInt(levelText) });
       });
     }
-    // });
 
     level.add([k.text(levelText), k.anchor("center"), k.color(255, 255, 255)]);
   }

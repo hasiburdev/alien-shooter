@@ -15,6 +15,11 @@ export enum SpriteAsset {
   VICTORY_MODAL = "victory-modal",
   DEFEAT_MODAL = "defeat-modal",
   DEFEAT_BG = "defeat-bg",
+
+  ENEMY_LEVEL_1_BOSS = "enemy-level-1-boss",
+  ENEMY_LEVEL_1_ROW_1 = "enemy-level-1-row-1",
+  ENEMY_LEVEL_1_ROW_2 = "enemy-level-1-row-2",
+  ENEMY_LEVEL_1_ROW_3 = "enemy-level-1-row-3",
 }
 
 export enum SoundAsset {
