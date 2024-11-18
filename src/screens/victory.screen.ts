@@ -3,8 +3,8 @@ import { Asset, Scene } from "../constants";
 import { getPlayer } from "../store";
 
 export const victoryScreen = (k: KAPLAYCtx<{}, never>) => {
-  return () => {
-    const mainRect = k.add([k.rect(k.width(), k.height()), k.pos(0, 0)]);
+  return ({ level }: { level?: number } = {}) => {
+    // const mainRect = k.add([k.rect(k.width(), k.height()), k.pos(0, 0)]);
 
     k.play(Asset.Sound.WIN_GAME);
 
@@ -54,7 +54,7 @@ export const victoryScreen = (k: KAPLAYCtx<{}, never>) => {
     nextButton.add([k.text("NEXT"), k.anchor("center"), k.color([0, 0, 0])]);
 
     nextButton.onClick(() => {
-      k.go(Scene.GAME, { level: getPlayer().currentLevel + 1 });
+      k.go(Scene.GAME, { level: level + 1 });
     });
   };
 };

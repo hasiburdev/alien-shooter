@@ -2,7 +2,7 @@ import { KAPLAYCtx } from "kaplay";
 import { Asset, Scene } from "../constants";
 
 export const defeatScreen = (k: KAPLAYCtx<{}, never>) => {
-  return () => {
+  return ({ level }: { level?: number } = {}) => {
     const mainRect = k.add([k.rect(k.width(), k.height()), k.pos(0, 0)]);
 
     k.add([
@@ -47,7 +47,7 @@ export const defeatScreen = (k: KAPLAYCtx<{}, never>) => {
     ]);
 
     retryButton.onClick(() => {
-      k.go(Scene.GAME);
+      k.go(Scene.GAME, { level: level });
     });
   };
 };

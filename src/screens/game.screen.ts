@@ -146,14 +146,14 @@ const createBullet = (
   });
 };
 
-const gameWin = (k: KAPLAYCtx<{}, never>) => {
+const gameWin = (k: KAPLAYCtx<{}, never>, level: number) => {
   updateCurrentLevel();
-  k.go(Scene.VICTORY);
+  k.go(Scene.VICTORY, { level });
 };
 
-const gameLose = (k: KAPLAYCtx<{}, never>) => {
+const gameLose = (k: KAPLAYCtx<{}, never>, level: number) => {
   k.play("enemy-crash-on-bottom");
-  k.go(Scene.DEFEAT);
+  k.go(Scene.DEFEAT, { level });
 };
 
 export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
@@ -176,7 +176,7 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
     for (const alien of aliens) {
       alien?.onUpdate(() => {
         if (alien.pos.y >= k.height() - 32.5) {
-          gameLose(k);
+          gameLose(k, level);
         }
       });
 
@@ -191,7 +191,7 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
     }
 
     ship.onCollide("alien", (alien) => {
-      gameLose(k);
+      gameLose(k, level);
     });
 
     k.onUpdate(() => {
@@ -200,7 +200,7 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
       ).length;
 
       if (existingAlienNumber <= 0) {
-        gameWin(k);
+        gameWin(k, level);
       }
     });
   };
