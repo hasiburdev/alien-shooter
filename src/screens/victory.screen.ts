@@ -1,5 +1,6 @@
 import { KAPLAYCtx } from "kaplay";
 import { Asset, Scene } from "../constants";
+import { getPlayer } from "../store";
 
 export const victoryScreen = (k: KAPLAYCtx<{}, never>) => {
   return () => {
@@ -53,7 +54,7 @@ export const victoryScreen = (k: KAPLAYCtx<{}, never>) => {
     nextButton.add([k.text("NEXT"), k.anchor("center"), k.color([0, 0, 0])]);
 
     nextButton.onClick(() => {
-      k.go(Scene.GAME);
+      k.go(Scene.GAME, { level: getPlayer().currentLevel + 1 });
     });
   };
 };
