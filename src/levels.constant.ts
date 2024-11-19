@@ -1,4 +1,6 @@
-export type EnemyType = string | null;
+import { EnemyTypes } from "./lib/enums/enemy-type.enum";
+
+export type EnemyType = keyof typeof EnemyTypes;
 
 export type LevelType = {
   // targetScore: number;
@@ -9,49 +11,52 @@ export type LevelType = {
 export const Levels: LevelType[] = [
   {
     enemies: [
-      [ null, "alien", "alien", "alien", "alien", "alien", "alien",  null ],
-      [ null, "alien", "alien", "alien", "alien", "alien", "alien", null ],
+      [ "NONE", "BASIC_1", "BASIC_1", "BASIC_1", "BASIC_1", "NONE" ],
+      [ "NONE", "BASIC_1", "BASIC_1", "BASIC_1", "BASIC_1", "NONE" ],
+      [ "NONE", "BASIC_1", "BASIC_1", "BASIC_1", "BASIC_1", "NONE" ],
+    ],
+  },
+  {
+    enemies: [
+      [ "NONE", "BASIC_1","BASIC_1", "BASIC_3", "BASIC_1", "BASIC_1", "NONE" ],
+      [ "NONE", "BASIC_2","BASIC_2", "BOSS_1",  "BASIC_2","BASIC_2", "NONE" ],
+      [ "NONE", "BASIC_1","BASIC_1", "BASIC_1", "BASIC_1", "BASIC_1", "NONE" ],
+      [ "NONE", "BASIC_1","BASIC_1", "BASIC_1","BASIC_1", "BASIC_1", "NONE" ],
+    ],
+  },
+  {
+    enemies: [
+      [ "NONE", "BASIC_1","BASIC_1", "BASIC_5", "BASIC_1", "BASIC_1", "NONE" ],
+      [ "NONE", "BASIC_3","BASIC_2", "BOSS_2",  "BASIC_2","BASIC_3", "NONE" ],
+      [ "NONE", "BASIC_2","BASIC_2", "BASIC_2",  "BASIC_2","BASIC_2", "NONE" ],
+      [ "NONE", "BASIC_1","BASIC_1", "BASIC_1","BASIC_1", "BASIC_1", "NONE" ],
+    ],
+  },
+  {
+    enemies: [
+      [ "NONE", "BASIC_4","BASIC_4", "BASIC_2", "BASIC_4", "BASIC_4", "NONE" ],
+      [ "NONE", "BASIC_3","BASIC_2", "BOSS_3",  "BASIC_2","BASIC_3", "NONE" ],
+      [ "NONE", "BASIC_2","BASIC_2", "BASIC_2",  "BASIC_2","BASIC_2", "NONE" ],
+      [ "NONE", "BASIC_1","BASIC_1", "BASIC_1","BASIC_1", "BASIC_1", "NONE" ],
+    ],
+  },
+  {
+    enemies: [
+      [ "NONE", "BASIC_4","BASIC_4", "BASIC_3", "BASIC_4", "BASIC_4", "NONE" ],
+      [ "NONE", "BASIC_3","BASIC_2", "BOSS_4",  "BASIC_2","BASIC_3", "NONE" ],
+      [ "NONE", "BASIC_5","BASIC_3", "BASIC_1",  "BASIC_2","BASIC_4", "NONE" ],
+      [ "NONE", "BASIC_1","BASIC_2", "BASIC_3","BASIC_4", "BASIC_5", "NONE" ],
+    ],
+  },
+  {
+    enemies: [
+      [ "NONE", "BASIC_4","BASIC_4", "BASIC_1", "BASIC_4", "BASIC_4", "NONE" ],
+      [ "NONE", "BASIC_3","BASIC_2", "BOSS_5",  "BASIC_2","BASIC_3", "NONE" ],
+      [ "NONE", "BASIC_5","BASIC_3", "BASIC_1",  "BASIC_2","BASIC_4", "NONE" ],
+      [ "NONE", "BASIC_1","BASIC_2", "BASIC_3","BASIC_4", "BASIC_5", "NONE" ],
+      [ "NONE", "BASIC_5","BASIC_3", "BASIC_4","BASIC_2", "BASIC_2", "NONE" ],
     ],
   },
 
-  {
-    enemies: [
-      [ null, "alien","alien", null, null, null, "alien", "alien",  null ],
-      [ null, "alien","alien", null, "boss", null, "alien","alien",  null ],
-      [ null, "alien","alien", null, null, null, "alien","alien",  null ],
-    ],
-  },
-
-  {
-    enemies: [
-      [ null, "alien", "alien", "alien", "alien", "alien", "alien",  null ],
-      [ null, "alien", "alien", "alien", "alien", "alien", "alien", null ],
-    ],
-  },
-
-  {
-    enemies: [
-      [ null, "alien", "alien", "alien", "alien", "alien", "alien",  null ],
-      [ null, "alien", "alien", "alien", "alien", "alien", "alien", null ],
-    ],
-  },
-  {
-    enemies: [
-      [ null, "alien", "alien", "alien", "alien", "alien", "alien",  null ],
-      [ null, "alien", "alien", "alien", "alien", "alien", "alien", null ],
-    ],
-  },
-  {
-    enemies: [
-      [ null, "alien", "alien", "alien", "alien", "alien", "alien",  null ],
-      [ null, "alien", "alien", "alien", "alien", "alien", "alien", null ],
-    ],
-  },
-  {
-    enemies: [
-      [ null, "alien", "alien", "alien", "alien", "alien", "alien",  null ],
-      [ null, "alien", "alien", "alien", "alien", "alien", "alien", null ],
-    ],
-  },
 
 ];

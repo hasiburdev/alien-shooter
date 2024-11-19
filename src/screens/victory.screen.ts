@@ -4,8 +4,6 @@ import { getPlayer } from "../store";
 
 export const victoryScreen = (k: KAPLAYCtx<{}, never>) => {
   return ({ level }: { level?: number } = {}) => {
-    // const mainRect = k.add([k.rect(k.width(), k.height()), k.pos(0, 0)]);
-
     k.play(Asset.Sound.WIN_GAME);
 
     k.add([
@@ -26,32 +24,32 @@ export const victoryScreen = (k: KAPLAYCtx<{}, never>) => {
     ]);
 
     const homeButton = k.add([
-      k.rect(150, 80, {
-        radius: 10,
+      k.rect(190, 75, {
+        radius: 30,
       }),
       k.area(),
-      k.pos(k.width() / 2 - 100, k.height() * 0.72),
-      k.outline(2),
+      k.pos(k.width() / 2 - 150, k.height() * 0.709999),
+      k.opacity(0),
       k.anchor("center"),
     ]);
 
-    homeButton.add([k.text("HOME"), k.anchor("center"), k.color([0, 0, 0])]);
+    // homeButton.add([k.text("HOME"), k.anchor("center"), k.color([0, 0, 0])]);
 
     homeButton.onClick(() => {
       k.go(Scene.HOME);
     });
 
     const nextButton = k.add([
-      k.rect(150, 80, {
-        radius: 10,
+      k.rect(190, 75, {
+        radius: 30,
       }),
       k.area(),
-      k.pos(k.width() / 2 + 100, k.height() * 0.72),
-      k.outline(2),
+      k.pos(k.width() / 2 + 180, k.height() * 0.709999),
+      k.opacity(0),
       k.anchor("center"),
     ]);
 
-    nextButton.add([k.text("NEXT"), k.anchor("center"), k.color([0, 0, 0])]);
+    // nextButton.add([k.text("NEXT"), k.anchor("center"), k.color([0, 0, 0])]);
 
     nextButton.onClick(() => {
       k.go(Scene.GAME, { level: level + 1 });

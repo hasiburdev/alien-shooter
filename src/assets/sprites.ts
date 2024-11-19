@@ -11,12 +11,17 @@ export const Sprites = {
   },
 
   Enemy: {
-    Level_1: {
-      Boss: "/sprites/enemies/level-1/boss.png",
-      Row_1: "/sprites/enemies/level-1/row-1.png",
-      Row_2: "/sprites/enemies/level-1/row-2.png",
-      Row_3: "/sprites/enemies/level-1/row-3.png",
-    },
+    BASIC_1: "/sprites/enemies/basic-1.png",
+    BASIC_2: "/sprites/enemies/basic-2.png",
+    BASIC_3: "/sprites/enemies/basic-3.png",
+    BASIC_4: "/sprites/enemies/basic-4.png",
+    BASIC_5: "/sprites/enemies/basic-5.png",
+
+    BOSS_1: "/sprites/enemies/boss-1.png",
+    BOSS_2: "/sprites/enemies/boss-2.png",
+    BOSS_3: "/sprites/enemies/boss-3.png",
+    BOSS_4: "/sprites/enemies/boss-4.png",
+    BOSS_5: "/sprites/enemies/boss-5.png",
   },
   Laser: {
     RED_SHORT: "/sprites/lasers/02.png",

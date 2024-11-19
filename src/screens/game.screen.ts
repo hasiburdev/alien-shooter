@@ -10,11 +10,12 @@ import {
 import { Asset, Scene } from "../constants";
 import { Levels } from "../levels.constant";
 import { getPlayer, updateCurrentLevel } from "../store";
+import { drawBackground } from "../lib/utils/draw-background";
 
-const createEnemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
+const createBasic_1_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
   const enemy = k.add([
     k.pos(x, y),
-    k.sprite("alien", {
+    k.sprite(Asset.Sprite.ENEMY_BASIC_1, {
       width: 45,
       height: 65,
     }),
@@ -31,10 +32,87 @@ const createEnemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
   return enemy;
 };
 
-const createBossEnemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
+const createBasic_2_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
   const enemy = k.add([
     k.pos(x, y),
-    k.sprite(Asset.Sprite.ENEMY_LEVEL_1_BOSS, {
+    k.sprite(Asset.Sprite.ENEMY_BASIC_2, {
+      width: 45,
+      height: 65,
+    }),
+    k.anchor("center"),
+    // k.body(),
+    k.area(),
+    "alien",
+  ]);
+
+  enemy.onUpdate(() => {
+    enemy.pos.y += 1;
+  });
+
+  return enemy;
+};
+const createBasic_3_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
+  const enemy = k.add([
+    k.pos(x, y),
+    k.sprite(Asset.Sprite.ENEMY_BASIC_3, {
+      width: 45,
+      height: 65,
+    }),
+    k.anchor("center"),
+    // k.body(),
+    k.area(),
+    "alien",
+  ]);
+
+  enemy.onUpdate(() => {
+    enemy.pos.y += 1;
+  });
+
+  return enemy;
+};
+const createBasic_4_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
+  const enemy = k.add([
+    k.pos(x, y),
+    k.sprite(Asset.Sprite.ENEMY_BASIC_4, {
+      width: 45,
+      height: 65,
+    }),
+    k.anchor("center"),
+    // k.body(),
+    k.area(),
+    "alien",
+  ]);
+
+  enemy.onUpdate(() => {
+    enemy.pos.y += 1;
+  });
+
+  return enemy;
+};
+const createBasic_5_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
+  const enemy = k.add([
+    k.pos(x, y),
+    k.sprite(Asset.Sprite.ENEMY_BASIC_5, {
+      width: 45,
+      height: 65,
+    }),
+    k.anchor("center"),
+    // k.body(),
+    k.area(),
+    "alien",
+  ]);
+
+  enemy.onUpdate(() => {
+    enemy.pos.y += 1;
+  });
+
+  return enemy;
+};
+
+const createBoss_1_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
+  const enemy = k.add([
+    k.pos(x, y),
+    k.sprite(Asset.Sprite.ENEMY_BOSS_1, {
       width: 145,
       height: 165,
     }),
@@ -48,6 +126,97 @@ const createBossEnemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
   });
 
   return enemy;
+};
+
+const createBoss_2_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
+  const enemy = k.add([
+    k.pos(x, y),
+    k.sprite(Asset.Sprite.ENEMY_BOSS_2, {
+      width: 145,
+      height: 165,
+    }),
+    k.anchor("center"),
+    k.area(),
+    "alien",
+  ]);
+
+  enemy.onUpdate(() => {
+    enemy.pos.y += 1;
+  });
+
+  return enemy;
+};
+
+const createBoss_3_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
+  const enemy = k.add([
+    k.pos(x, y),
+    k.sprite(Asset.Sprite.ENEMY_BOSS_3, {
+      width: 145,
+      height: 165,
+    }),
+    k.anchor("center"),
+    k.area(),
+    "alien",
+  ]);
+
+  enemy.onUpdate(() => {
+    enemy.pos.y += 1;
+  });
+
+  return enemy;
+};
+
+const createBoss_4_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
+  const enemy = k.add([
+    k.pos(x, y),
+    k.sprite(Asset.Sprite.ENEMY_BOSS_4, {
+      width: 145,
+      height: 165,
+    }),
+    k.anchor("center"),
+    k.area(),
+    "alien",
+  ]);
+
+  enemy.onUpdate(() => {
+    enemy.pos.y += 1;
+  });
+
+  return enemy;
+};
+
+const createBoss_5_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
+  const enemy = k.add([
+    k.pos(x, y),
+    k.sprite(Asset.Sprite.ENEMY_BOSS_5, {
+      width: 145,
+      height: 165,
+    }),
+    k.anchor("center"),
+    k.area(),
+    "alien",
+  ]);
+
+  enemy.onUpdate(() => {
+    enemy.pos.y += 1;
+  });
+
+  return enemy;
+};
+
+const createTimer = (k: KAPLAYCtx<{}, never>, level: number) => {
+  const timer = k.add([k.text("0"), k.pos(12, 32), k.fixed(), { time: 0 }]);
+
+  timer.onUpdate(() => {
+    timer.time += k.dt();
+    timer.text = timer.time.toFixed(2);
+
+    if (timer.time > 30) {
+      gameLose(k, level);
+    }
+  });
+
+  return timer;
 };
 
 const createEnemyFleet = (k: KAPLAYCtx<{}, never>, currentLevel?: number) => {
@@ -66,12 +235,41 @@ const createEnemyFleet = (k: KAPLAYCtx<{}, never>, currentLevel?: number) => {
       const positionX = columnOffset + columnWidth * columnIndex;
       const positionY = columnOffset + columnWidth * rowIndex;
 
-      if (enemyColumn === null) {
+      if (enemyColumn === "NONE") {
         continue;
-      } else if (enemyColumn === "alien") {
-        aliens.push(createEnemy(positionX, positionY, k));
-      } else if (enemyColumn === "boss") {
-        aliens.push(createBossEnemy(positionX, positionY, k));
+      }
+
+      switch (enemyColumn) {
+        case "BASIC_1":
+          aliens.push(createBasic_1_Enemy(positionX, positionY, k));
+          break;
+        case "BASIC_2":
+          aliens.push(createBasic_2_Enemy(positionX, positionY, k));
+          break;
+        case "BASIC_3":
+          aliens.push(createBasic_3_Enemy(positionX, positionY, k));
+          break;
+        case "BASIC_4":
+          aliens.push(createBasic_4_Enemy(positionX, positionY, k));
+          break;
+        case "BASIC_5":
+          aliens.push(createBasic_5_Enemy(positionX, positionY, k));
+          break;
+        case "BOSS_1":
+          aliens.push(createBoss_1_Enemy(positionX, positionY, k));
+          break;
+        case "BOSS_2":
+          aliens.push(createBoss_2_Enemy(positionX, positionY, k));
+          break;
+        case "BOSS_3":
+          aliens.push(createBoss_3_Enemy(positionX, positionY, k));
+          break;
+        case "BOSS_4":
+          aliens.push(createBoss_4_Enemy(positionX, positionY, k));
+          break;
+        case "BOSS_5":
+          aliens.push(createBoss_5_Enemy(positionX, positionY, k));
+          break;
       }
     }
   }
@@ -158,14 +356,7 @@ const gameLose = (k: KAPLAYCtx<{}, never>, level: number) => {
 
 export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
   return ({ level }: { level?: number }) => {
-    k.add([
-      k.sprite(Asset.Sprite.BACKGROUND, {
-        width: k.width(),
-        height: k.height(),
-      }),
-      k.pos(0, 0),
-      k.layer("bg"),
-    ]);
+    drawBackground(k);
 
     // Start the main scene
 
@@ -203,5 +394,7 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
         gameWin(k, level);
       }
     });
+
+    createTimer(k, level);
   };
 };
