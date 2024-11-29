@@ -18,8 +18,8 @@ export const Levels: LevelType[] = [
   },
   {
     enemies: [
-      [ "NONE", "BASIC_1","BASIC_1", "BASIC_3", "BASIC_1", "BASIC_1", "NONE" ],
-      [ "NONE", "BASIC_2","BASIC_2", "BOSS_1",  "BASIC_2","BASIC_2", "NONE" ],
+      [ "NONE", "BASIC_1","BASIC_1", "BOSS_1", "BASIC_1", "BASIC_1", "NONE" ],
+      [ "NONE", "BASIC_2","BASIC_2", "BASIC_1",  "BASIC_2","BASIC_2", "NONE" ],
       [ "NONE", "BASIC_1","BASIC_1", "BASIC_1", "BASIC_1", "BASIC_1", "NONE" ],
       [ "NONE", "BASIC_1","BASIC_1", "BASIC_1","BASIC_1", "BASIC_1", "NONE" ],
     ],

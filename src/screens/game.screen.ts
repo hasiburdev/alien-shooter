@@ -1,5 +1,6 @@
 import {
   AnchorComp,
+  AreaComp,
   GameObj,
   KAPLAYCtx,
   LayerComp,
@@ -9,7 +10,7 @@ import {
 } from "kaplay";
 import { Asset, Scene } from "../constants";
 import { Levels } from "../levels.constant";
-import { getPlayer, updateCurrentLevel } from "../store";
+import { addLevelHistory, getPlayer, updateCurrentLevel } from "../store";
 import { drawBackground } from "../lib/utils/draw-background";
 
 const createBasic_1_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
@@ -23,6 +24,10 @@ const createBasic_1_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
     // k.body(),
     k.area(),
     "alien",
+    {
+      health: 10,
+      currentHealth: 10,
+    },
   ]);
 
   enemy.onUpdate(() => {
@@ -43,6 +48,10 @@ const createBasic_2_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
     // k.body(),
     k.area(),
     "alien",
+    {
+      health: 10,
+      currentHealth: 10,
+    },
   ]);
 
   enemy.onUpdate(() => {
@@ -62,6 +71,10 @@ const createBasic_3_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
     // k.body(),
     k.area(),
     "alien",
+    {
+      health: 10,
+      currentHealth: 10,
+    },
   ]);
 
   enemy.onUpdate(() => {
@@ -81,6 +94,10 @@ const createBasic_4_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
     // k.body(),
     k.area(),
     "alien",
+    {
+      health: 10,
+      currentHealth: 10,
+    },
   ]);
 
   enemy.onUpdate(() => {
@@ -100,6 +117,10 @@ const createBasic_5_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
     // k.body(),
     k.area(),
     "alien",
+    {
+      health: 10,
+      currentHealth: 10,
+    },
   ]);
 
   enemy.onUpdate(() => {
@@ -107,6 +128,40 @@ const createBasic_5_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
   });
 
   return enemy;
+};
+
+const addLift = (
+  k: KAPLAYCtx<{}, never>,
+  component: GameObj<
+    | SpriteComp
+    | PosComp
+    | AnchorComp
+    | AreaComp
+    | {
+        health: number;
+        currentHealth: number;
+      }
+  >
+) => {
+  const healthPercentage = (component.currentHealth / component.health) * 100;
+
+  console.log(healthPercentage);
+
+  const lifeBar = component.add([
+    k.rect(100, 10, { radius: 5 }),
+    k.pos(0, -100),
+    k.anchor("top"),
+    k.color(255, 0, 0),
+  ]);
+
+  const life = lifeBar.add([
+    k.rect(healthPercentage, 10, { radius: 5 }),
+    k.pos(-50, 5),
+    // k.center(),
+    k.anchor("left"),
+    k.color(0, 255, 0),
+    "currentLife",
+  ]);
 };
 
 const createBoss_1_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
@@ -119,10 +174,18 @@ const createBoss_1_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
     k.anchor("center"),
     k.area(),
     "alien",
+    {
+      health: 30,
+      currentHealth: 30,
+    },
   ]);
+
+  addLift(k, enemy);
 
   enemy.onUpdate(() => {
     enemy.pos.y += 1;
+
+    // life.color = k.color(0, 255, 0);
   });
 
   return enemy;
@@ -138,7 +201,13 @@ const createBoss_2_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
     k.anchor("center"),
     k.area(),
     "alien",
+    {
+      health: 40,
+      currentHealth: 40,
+    },
   ]);
+
+  addLift(k, enemy);
 
   enemy.onUpdate(() => {
     enemy.pos.y += 1;
@@ -157,8 +226,12 @@ const createBoss_3_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
     k.anchor("center"),
     k.area(),
     "alien",
+    {
+      health: 50,
+      currentHealth: 50,
+    },
   ]);
-
+  addLift(k, enemy);
   enemy.onUpdate(() => {
     enemy.pos.y += 1;
   });
@@ -176,8 +249,12 @@ const createBoss_4_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
     k.anchor("center"),
     k.area(),
     "alien",
+    {
+      health: 60,
+      currentHealth: 60,
+    },
   ]);
-
+  addLift(k, enemy);
   enemy.onUpdate(() => {
     enemy.pos.y += 1;
   });
@@ -195,8 +272,12 @@ const createBoss_5_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
     k.anchor("center"),
     k.area(),
     "alien",
+    {
+      health: 100,
+      currentHealth: 100,
+    },
   ]);
-
+  addLift(k, enemy);
   enemy.onUpdate(() => {
     enemy.pos.y += 1;
   });
@@ -205,7 +286,13 @@ const createBoss_5_Enemy = (x: number, y: number, k: KAPLAYCtx<{}, never>) => {
 };
 
 const createTimer = (k: KAPLAYCtx<{}, never>, level: number) => {
-  const timer = k.add([k.text("0"), k.pos(12, 32), k.fixed(), { time: 0 }]);
+  const timer = k.add([
+    k.text("0"),
+    k.pos(12, 32),
+    k.fixed(),
+    k.anchor("left"),
+    { time: 0 },
+  ]);
 
   timer.onUpdate(() => {
     timer.time += k.dt();
@@ -217,6 +304,33 @@ const createTimer = (k: KAPLAYCtx<{}, never>, level: number) => {
   });
 
   return timer;
+};
+
+const createScore = (k: KAPLAYCtx<{}, never>, level: number) => {
+  const score = k.add([
+    k.text(`Score: 0`),
+    k.pos(800 - 12, 32),
+    k.fixed(),
+    k.anchor("right"),
+    "score",
+    {
+      score: 0,
+      updateScore: (point: number) => {
+        console.log("update score", point);
+        score.score += point;
+        score.text = `Score: ${score.score.toString()}`;
+      },
+    },
+  ]);
+
+  // score.onUpdate(() => {
+  //   // score.time += k.dt();
+  //   score.text = score.time.toFixed(2);
+  // });
+
+  // score.
+
+  return score;
 };
 
 const createEnemyFleet = (k: KAPLAYCtx<{}, never>, currentLevel?: number) => {
@@ -337,6 +451,9 @@ const createBullet = (
       shape: new k.Rect(new k.Vec2(0, 0), 10, 10),
     }),
     "laser",
+    {
+      damage: 10,
+    },
   ]);
 
   laser.onUpdate(() => {
@@ -344,8 +461,9 @@ const createBullet = (
   });
 };
 
-const gameWin = (k: KAPLAYCtx<{}, never>, level: number) => {
+const gameWin = (k: KAPLAYCtx<{}, never>, level: number, time: number) => {
   updateCurrentLevel();
+  addLevelHistory(level, time);
   k.go(Scene.VICTORY, { level });
 };
 
@@ -364,6 +482,10 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
 
     const aliens = createEnemyFleet(k, level);
 
+    const score = createScore(k, level);
+
+    const timer = createTimer(k, level);
+
     for (const alien of aliens) {
       alien?.onUpdate(() => {
         if (alien.pos.y >= k.height() - 32.5) {
@@ -373,12 +495,22 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
 
       alien?.onCollide("laser", (laser) => {
         k.play("shoot-alien");
-
         k.destroy(laser);
-        k.destroy(alien);
-      });
+        alien.currentHealth -= laser.damage;
 
-      alien?.onDestroy((e) => {});
+        const lifeBars = alien.children;
+
+        if (lifeBars.length > 0) {
+          const lifeComponent = lifeBars[0].children[0];
+
+          lifeComponent.width = (alien.currentHealth / alien.health) * 100;
+        }
+
+        if (alien.currentHealth <= 0) {
+          score.updateScore(alien.health);
+          k.destroy(alien);
+        }
+      });
     }
 
     ship.onCollide("alien", (alien) => {
@@ -391,10 +523,8 @@ export const gameScreen = (k: KAPLAYCtx<{}, never>) => {
       ).length;
 
       if (existingAlienNumber <= 0) {
-        gameWin(k, level);
+        gameWin(k, level, timer.time);
       }
     });
-
-    createTimer(k, level);
   };
 };
