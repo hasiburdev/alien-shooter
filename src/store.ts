@@ -57,6 +57,20 @@ export const setActiveShip = (ship: string) => {
 
 export const addLevelHistory = (level: number, score: number) => {
   const player = getPlayer();
+
+  // if ()
+  const existingLevel = player.levelHistory.find(
+    (history) => history.level === level
+  );
+
+  if (existingLevel) {
+    if (existingLevel.score < score) {
+      existingLevel.score = score;
+    }
+  } else {
+    player.levelHistory.push({ level, score });
+  }
+
   player.levelHistory.push({ level, score });
   setPlayer(player);
 };
